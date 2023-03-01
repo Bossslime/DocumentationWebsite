@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oakland Outreach & Shindig</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@3.0.1/github-markdown.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+
+            background-color: #0C1821;
+
+            font-family: Arial;
+            user-select: none;
+        }
+
+        /*
+         *  Navbar Classes
+         */
+        nav {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            min-width: 250px;
+            width: 20%;
+            height: 100vh;
+
+            color: #CCC9DC;
+            text-align: center;
+
+        }
+
+        .line {
+            height: 1px;
+            width: 90%;
+            background-color: #CCC9DC;
+
+        }
+
+        .pageContainer {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 85%;
+            height: 80%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+        }
+
+        /*
+         *  Directory and dropdown
+         */
+
+        .directoryItem {
+            display: flex;
+            flex-direction: row;
+            line-height: 0;
+
+            border-left-color: #1B2A41;
+            border-left-style: solid;
+            border-left-width: 5px;
+
+            margin: 2% 0;
+
+            width: 95%;
+            height: fit-content;
+            padding: 0 2%;
+            justify-content: space-between;
+        }
+
+        .directoryItem:hover {
+            background-color: #1B2A41;
+            cursor: pointer;
+        }
+
+        .dropdownContent {
+            position: relative;
+            width: 85%;
+            height: fit-content;
+
+            line-height: 0;
+
+            text-align: left;
+            margin-right: 5%;
+
+            border-left-color: #1B2A41;
+            border-left-style: solid;
+            border-left-width: 3px;
+        }
+
+        /*
+         *  Page Item Formatting
+         */
+        .pageItem {
+            display: flex;
+            flex-direction: row;
+            line-height: 0;
+
+            margin: 2% 0;
+
+            border-left-color: #1B2A41;
+            border-left-style: solid;
+            border-left-width: 3px;
+
+            width: 100%;
+            height: fit-content;
+            padding: 0 2%;
+            justify-content: left;
+        }
+
+        .pageItemOpen {
+            display: flex;
+            flex-direction: row;
+            line-height: 0;
+
+            margin: 2% 0;
+
+            border-left-color: #1B2A41;
+            border-left-style: solid;
+            border-left-width: 3px;
+
+            width: 100%;
+            height: fit-content;
+            padding: 0 2%;
+            justify-content: left;
+            background-color: #1B2A41;
+            cursor: pointer;
+        }
+
+        .pageItem:hover {
+            background-color: #1B2A41;
+            cursor: pointer;
+        }
+
+        .footerItem {
+            position: absolute;
+            height: 15%;
+            width: 100%;
+            max-height: 150px;
+
+            display: flex;
+            flex-direction: column;
+
+            color: #1B2A41;
+
+            overflow-y: scroll;
+            align-items: center;
+
+            bottom: 0;
+        }
+
+        /*
+         *  Markdown Classes
+         */
+        .readMeContainer {
+            position: relative;
+            user-select: text;
+
+            width: 80%;
+            min-width: 500px;
+            height: 100vh;
+            background-color: #0C1821;
+            overflow-y: scroll;
+
+            box-sizing: border-box;
+            border-left-style: solid;
+            border-left-color: #1B2A41;
+
+            overflow-x: scroll;
+        }
+
+        .markdown-body {
+
+            padding: 45px;
+            color: #D1CEDF;
+            background-color: #0C1821;
+        }
+
+        .markdown-body > h1 {
+            border-bottom-color: #CCC9DC;
+            color: #CCC9DC;
+        }
+
+        .markdown-body > h2 {
+            border-bottom-color: #CCC9DC;
+            color: #CCC9DC;
+        }
+
+
+        /*
+         *  Table formatting
+         */
+        .markdown-body > table > thead > tr {
+            background-color: #1B2A41;
+        }
+
+        .markdown-body > table > thead > tr > th {
+            border-color: #142131;
+            border-width: 2px;
+        }
+
+        .markdown-body > table > tbody > tr {
+            background-color: #1B2A41;
+        }
+
+        .markdown-body > table > tbody > tr > td {
+            border-color: #142131;
+            border-width: 2px;
+        }
+
+        .markdown-body > table > tbody > tr:nth-child(2n) {
+            background-color: #1B2A41;
+        }
+
+        .markdown-body > table > tbody > tr:nth-child(2n) > td {
+            border-color: #142131;
+            border-width: 2px;
+            background-color: #142131;
+        }
+
+        .markdown-body > pre {
+            border-color: #142131;
+            border-radius: 10px;
+            background-color: #1B2A41;
+            border-style: solid;
+        }
+
+        .markdown-body img {
+            background-color: transparent;
+        }
+
+        /* ===== Scrollbar CSS ===== */
+        /* Chrome, Edge, and Safari */
+        *::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background-color: #1B2A41;
+            border-radius: 10px;
+        }
+
+        /*
+         *  Code block coloring
+         */
+        .hljs {
+            color: inherit;
+        }
+        .hljs-keyword,.hljs-punctuation,.hljs-tag {
+            color: #CC7832;
+        }
+
+        .hljs-punctuation,.hljs-tag{color: #CC7832;}
+        .hljs-tag .hljs-attr,.hljs-tag .hljs-name{color: #CC7832;}
+
+        .hljs-comment {
+            color: #808080;
+        }
+        .hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-template-tag{
+            color: #6897BB
+        }
+
+        .hljs-type {
+            color:#FFC66D;
+        }
+
+        .hljs-meta{color:#BBB529}
+
+        .hljs-string {
+            color: #6A8759;
+        }
+
+        .hljs-section,.hljs-title{
+            color:#FFC66D;
+        }
+
+        .hljs-link,.hljs-operator,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable{
+            color: inherit;
+        }
+        .hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code {
+            color:#FFC66D;
+        }
+
+        .copyButton {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 1%;
+
+            border-style: none;
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            color: #142131;
+            background-color: #6897BB;
+            transition: all 0.2s ease;
+        }
+
+        .copyButton:hover {
+            width: 45px;
+            height: 45px;
+
+            font-size: 16px;
+        }
+
+
+        .mobile-display {display: none;}
+        .desktop-display {display: flex; flex-direction: row; height: 100%; width: 100%;}
+
+        @media screen and (pointer:coarse) {
+            .desktop-display {display: none}
+            .mobile-display {display: flex; flex-direction: column; width: 100%; height: 100%;}
+
+
+            nav {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+
+                width: 100%;
+                height: 20%;
+                max-height: 100px;
+
+                color: #CCC9DC;
+            }
+
+            .navObject {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+                height: 50%;
+            }
+            .readMeContainer {
+                position: relative;
+                user-select: text;
+
+                width: 100%;
+                height: fit-content;
+                background-color: #0C1821;
+                overflow-y: scroll;
+                border: none;
+            }
+        }
+      </style>
+</head>
+  <body>
+  <div class="desktop-display">
+      <nav>
+          <br>
+          <h1 style="cursor: pointer;" onclick="pageClick('home')">Oakland Outreach & Shindig</h1>
+          <br>
+          <div class="line"></div>
+          <br>
+          <div class="pageContainer" id="documentList">
+              <document_list></document_list>
+          </div>
+
+          <div class="footerItem">
+              <div class="line"></div>
+              <p style="color: #324A5F">This website was built and constructed by Bossslime.</p>
+              <br>
+              <p>© <a href="https://bossslime.com/">Bossslime.com</a> - 2023</p>
+          </div>
+      </nav>
+
+      <div class="readMeContainer">
+          <div class="markdown-body"  id="desktopPageInfo"></div>
+      </div>
+  </div>
+
+      <div class="mobile-display">
+          <nav>
+              <div class="navObject" style="background-color: #142131">
+                  <h1 onclick="pageClick('home')">Oakland Outreach & Shindig</h1>
+              </div>
+              <div class="navObject" style="background-color: #1B2A41">
+                  <i class="fa-solid fa-bars"></i>
+              </div>
+          </nav>
+          <div class="readMeContainer">
+              <div class="markdown-body"  id="mobilePageInfo"></div>
+          </div>
+      </div>
+  </body>
+
+  <!-- Script imports -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+
+  <!-- Main Scripts -->
+  <script>
+      /*let socket = io('http://localhost:3000');*/
+
+      let files = {
+          items: [],
+          directories: [],
+          directoryItems: []
+      }
+      initializeItems();
+
+
+      /*socket.on('connect', () => {
+          console.log('connected to server');
+      });*/
+      let converter = new showdown.Converter({
+          tables: true,
+          ghCodeBlocks: true
+      });
+
+      fetch("home.md").then(function(response) { //Loads the home markdown file by default
+          return response.text();
+      }).then(function(markdown) {
+          document.getElementById("desktopPageInfo").innerHTML = converter.makeHtml(markdown);
+          document.getElementById("mobilePageInfo").innerHTML = converter.makeHtml(markdown);
+          hljs.highlightAll();
+          this.setCopyButton()
+      });
+
+      function pageClick(page) {
+          fetch(page + ".md").then(function(response) {
+              return response.text();
+          }).then(function(markdown) {
+              document.getElementById("desktopPageInfo").innerHTML = converter.makeHtml(markdown);
+              document.getElementById("mobilePageInfo").innerHTML = converter.makeHtml(markdown);
+              hljs.highlightAll();
+              this.setCopyButton()
+          });
+
+          let i = 0;
+          for (let item of files.items) {
+              if (item.isOpen === true) {
+                  files.items[i].isOpen = false;
+              }
+              i++;
+          }
+
+          i = 0;
+          for (let item of files.directoryItems) {
+              if (item.isOpen === true) {
+                  files.directoryItems[i].isOpen = false;
+              }
+              i++;
+          }
+      }
+
+
+      Vue.component('document_list', {
+          template: `
+             <div class="pageContainer">
+                <div v-for="item in files.items">
+                  <div class="pageItem" v-on:click="pageClick(item.fileName)" v-if="item.isOpen === false">
+                    <p>{{ item.fileName }}</p>
+                  </div>
+
+                  <div class="pageItemOpen" v-on:click="pageClick(item.fileName)" v-if="item.isOpen === true">
+                    <p>{{ item.fileName }}</p>
+                  </div>
+                </div>
+
+                <div v-for="directory in files.directories">
+                  <div class="directoryItem" v-on:click="directoryClick(directory.directoryName)">
+                    <p>{{ directory.directoryName }}</p>
+                    <i v-if="directory.isOpen === false" style="margin: auto 0;" class="fa-solid fa-angle-right"></i>
+                    <i v-if="directory.isOpen === true" style="margin: auto 0;" class="fa-solid fa-angle-down"></i>
+                  </div>
+                  <div v-if="directory.isOpen === true" style="display: flex; flex-direction: column; align-items: end;">
+                    <div class="dropdownContent">
+                      <div v-for="item in files.directoryItems">
+                        <div style="border: none" class="pageItem" v-on:click="directoryPageClick(directory.directoryName, item.fileName)" v-if="item.isOpen === false && item.directoryName === directory.directoryName">
+                          <p>{{ item.fileName }}</p>
+                        </div>
+
+                        <div style="border: none" class="pageItemOpen" v-on:click="directoryPageClick(directory.directoryName, item.fileName)" v-if="item.isOpen === true && item.directoryName === directory.directoryName">
+                          <p>{{ item.fileName }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `,
+          data() {
+              return {
+                  files: files
+              }
+          },
+          methods: {
+              pageClick: function (page) {
+                  fetch(page + ".md").then(function (response) {
+                      return response.text();
+                  }).then(function (markdown) {
+                      document.getElementById("desktopPageInfo").innerHTML = converter.makeHtml(markdown);
+                      document.getElementById("mobilePageInfo").innerHTML = converter.makeHtml(markdown);
+                      hljs.highlightAll();
+                      setCopyButton()
+                  });
+                  let i = 0;
+                  for (let item of this.files.items) {
+                      if (item.fileName === page) {
+                          if (item.isOpen === true) {
+                              this.files.items[i].isOpen = false;
+                          }else {
+                              this.files.items[i].isOpen = true;
+                          }
+                      }else {
+                          if (item.isOpen === true) {
+                              this.files.items[i].isOpen = false;
+                          }
+                      }
+                      i++;
+                  }
+
+                  i = 0;
+                  for (let item of this.files.directoryItems) {
+                      if (item.isOpen === true) {
+                          this.files.directoryItems[i].isOpen = false;
+                      }
+                      i++;
+                  }
+              },
+              directoryClick: function (directory) {
+                  console.log(directory)
+                  let i = 0;
+                  for (let directori of this.files.directories) {
+                      if (directori.directoryName === directory) {
+                          if (directori.isOpen === true) {
+                              this.files.directories[i].isOpen = false;
+                          }else {
+                              this.files.directories[i].isOpen = true;
+                          }
+                      }
+                      i++;
+                  }
+              },
+
+              directoryPageClick: function (directory, page) {
+                  fetch(directory + "/" + page + ".md").then(function (response) {
+                      return response.text();
+                  }).then(function (markdown) {
+                      document.getElementById("desktopPageInfo").innerHTML = converter.makeHtml(markdown);
+                      document.getElementById("mobilePageInfo").innerHTML = converter.makeHtml(markdown);
+                      hljs.highlightAll();
+                      setCopyButton()
+                  });
+
+                  let i = 0;
+                  for (let item of this.files.directoryItems) {
+                      if (item.fileName === page) {
+                          if (directory === item.directoryName) {
+                              if (item.isOpen === true) {
+                                  this.files.directoryItems[i].isOpen = false;
+                              }else {
+                                  this.files.directoryItems[i].isOpen = true;
+                              }
+                          }else {
+                              if (item.isOpen === true) {
+                                  this.files.directoryItems[i].isOpen = false;
+                              }
+                          }
+                      }else {
+                          if (item.isOpen === true) {
+                              this.files.directoryItems[i].isOpen = false;
+                          }
+                      }
+                      i++;
+                  }
+
+
+
+                  i = 0;
+                  for (let item of this.files.items) {
+                      if (item.isOpen === true) {
+                          this.files.items[i].isOpen = false;
+                      }
+                      i++;
+                  }
+              }
+          }
+      })
+      let login = new Vue({
+          el: '#documentList',
+          data() {
+              return {
+              }
+          },
+          methods: {
+              setCopyButton: setCopyButton()
+          },
+          mounted() {
+
+          }
+      })
+
+      let copyCode = function() {
+          let copyText = this.previousSibling;
+          let textArea = document.createElement("textarea");
+          textArea.value = copyText.textContent;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          textArea.remove();
+          alert("The code has been copied!")
+      };
+
+      function setCopyButton() {
+          let codeBlocks = document.querySelectorAll("pre code");
+          for (let i = 0; i < codeBlocks.length; i++) {
+              let button = document.createElement("button");
+              button.innerHTML = "<i class='fa-solid fa-copy'>";
+              button.classList.add("copyButton")
+              button.addEventListener("click", copyCode);
+              codeBlocks[i].parentNode.style.position = "relative";
+              codeBlocks[i].parentNode.appendChild(button);
+          }
+      }
+
+      function initializeItems() {
+          files.items.push({
+              fileName: 'ReadMe',
+              isOpen: false
+          })
+
+          files.directories.push({
+              directoryName: 'Code',
+              isOpen: false
+          })
+
+          files.directoryItems.push({
+              fileName: 'test',
+              directoryName: 'Code',
+              isOpen: false
+          })
+      }
+  </script>
+</html>
