@@ -369,7 +369,9 @@
   <div class="desktop-display">
       <nav>
           <br>
-          <h1 style="cursor: pointer;" onclick="pageClick('home')">Oakland Outreach & Shindig</h1>
+          <!--<h1 style="cursor: pointer;" onclick="pageClick('home')">Documentation</h1>-->
+
+          <img style="cursor: pointer;" width="100" onclick="pageClick('home')" src=".hidden/Logo.webp">
           <br>
           <div class="line"></div>
           <br>
@@ -393,7 +395,7 @@
       <div class="mobile-display">
           <nav>
               <div class="navObject" style="background-color: #142131">
-                  <h1 onclick="pageClick('home')">Oakland Outreach & Shindig</h1>
+                  <h1 onclick="pageClick('home')">Documentation</h1>
               </div>
               <div class="navObject" style="background-color: #1B2A41">
                   <i class="fa-solid fa-bars"></i>
@@ -639,19 +641,43 @@
       }
 
       function initializeItems() {
-          files.items.push({
+          /*files.items.push({
               fileName: 'ReadMe',
               isOpen: false
-          })
+          })*/
 
           files.directories.push({
-              directoryName: 'Code',
+              directoryName: 'Java',
+              isOpen: false
+          })
+          files.directoryItems.push({
+              fileName: 'CachingClass',
+              directoryName: 'Java',
               isOpen: false
           })
 
+
+
+
+
+          files.directories.push({
+              directoryName: 'JavaScript',
+              isOpen: false
+          })
           files.directoryItems.push({
-              fileName: 'test',
-              directoryName: 'Code',
+              fileName: 'StandaloneSocket',
+              directoryName: 'JavaScript',
+              isOpen: false
+          })
+          files.directoryItems.push({
+              fileName: 'LIFXAPI',
+              directoryName: 'JavaScript',
+              isOpen: false
+          })
+
+
+          files.directories.push({
+              directoryName: 'Html/Css',
               isOpen: false
           })
       }
