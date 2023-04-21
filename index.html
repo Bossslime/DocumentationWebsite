@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Oakland Outreach & Shindig</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@3.0.1/github-markdown.min.css">
+    <title>Docs | Bossslime.com</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@5.2.0/github-markdown.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
     <style>
@@ -226,7 +226,7 @@
         }
 
         .markdown-body > table > tbody > tr:nth-child(2n) > td {
-            border-color: #142131;
+            border-color: #1B2A41;
             border-width: 2px;
             background-color: #142131;
         }
@@ -412,6 +412,8 @@
   <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
   <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="Styles/ShowdownMermaid/ShowdownMermaid.js"></script>
 
   <!-- Main Scripts -->
   <script>
@@ -428,9 +430,11 @@
       /*socket.on('connect', () => {
           console.log('connected to server');
       });*/
+      mermaid.initialize({ theme: 'default' });
       let converter = new showdown.Converter({
           tables: true,
-          ghCodeBlocks: true
+          ghCodeBlocks: true,
+          extensions: ['showdownMermaid']
       });
 
       fetch("home.md").then(function(response) { //Loads the home markdown file by default
