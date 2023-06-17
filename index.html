@@ -413,7 +413,6 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
   <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script src="Styles/ShowdownMermaid/ShowdownMermaid.js"></script>
 
   <!-- Main Scripts -->
   <script>
@@ -430,11 +429,10 @@
       /*socket.on('connect', () => {
           console.log('connected to server');
       });*/
-      mermaid.initialize({ theme: 'default' });
       let converter = new showdown.Converter({
           tables: true,
           ghCodeBlocks: true,
-          extensions: ['showdownMermaid']
+          extensions: []
       });
 
       fetch("home.md").then(function(response) { //Loads the home markdown file by default
@@ -682,6 +680,21 @@
 
           files.directories.push({
               directoryName: 'Html/Css',
+              isOpen: false
+          })
+
+          files.directories.push({
+              directoryName: 'VueJS',
+              isOpen: false
+          })
+          files.directoryItems.push({
+              fileName: 'Getting Started',
+              directoryName: 'VueJS',
+              isOpen: false
+          })
+          files.directoryItems.push({
+              fileName: 'Component Basics',
+              directoryName: 'VueJS',
               isOpen: false
           })
       }
